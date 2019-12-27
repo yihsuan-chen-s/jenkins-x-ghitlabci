@@ -1,0 +1,55 @@
+image: ubuntu:latest
+
+stages:
+  - parallel
+  - test
+  - archive
+
+Parallel-1:
+  tags:
+    - docker
+  stage: parallel
+  script:
+    - echo Parallel-1
+
+Parallel-2:
+  tags:
+    - docker
+  stage: parallel
+  script:
+    - echo Parallel-2
+
+Test-Normal:
+  tags:
+    - docker
+  stage: test
+  script:
+    - echo Test-Normal
+
+Test-Manual:
+  tags:
+    - docker
+  stage: test
+  when: manual
+  script:
+    - echo Test-Manual
+
+Test-Allow-Failure:
+  tags:
+    - docker
+  stage: test
+  allow_failure: true
+  script:
+    - echo Test-Failure
+    - idontexist
+
+Archive:
+  tags:
+    - docker
+  stage: archive
+  script:
+    - echo "This is my testing artifact." >> artifact.txt
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - ./*.txt
