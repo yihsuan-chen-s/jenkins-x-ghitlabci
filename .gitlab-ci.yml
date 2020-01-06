@@ -50,6 +50,7 @@ Archive:
   script:
     - echo "This is my testing artifact." >> artifact.txt
   artifacts:
+    name: "Artifacts"
     expire_in: 1 week
     paths:
       - ./*.txt
